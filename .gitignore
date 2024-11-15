@@ -363,5 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 env/*
-*.pyproj
 /Discord-yMusicBot.pyproj
+.env
