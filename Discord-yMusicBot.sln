@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35431.28
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Discord-yMusicBot", "Discord-yMusicBot.pyproj", "{3B70CD42-A451-468A-9331-F4AED16F249C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B70CD42-A451-468A-9331-F4AED16F249C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B70CD42-A451-468A-9331-F4AED16F249C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {72916B4D-58A4-49EF-84F5-B756BA822E82}
+	EndGlobalSection
+EndGlobal
