@@ -9,7 +9,7 @@ import os
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-PREFIX = '!'
+PREFIX = 'y!'
 
 bot = commands.Bot(command_prefix=PREFIX)
 
@@ -85,7 +85,7 @@ def check_queue(ctx):
         player = discord.FFmpegPCMAudio(next_song['url'], **ffmpeg_options)
         ctx.voice_client.play(player, after=lambda e: check_queue(ctx))
 
-@bot.command(name='play', help='URL‚Ü‚½‚ÍƒvƒŒƒCƒŠƒXƒg‚©‚ç‰¹Šy‚ğÄ¶‚µ‚Ü‚·')
+@bot.command(name='play', help='URLã¾ãŸã¯ãƒ—ãƒ¬ã‚¤ãƒªã‚¹ãƒˆã‹ã‚‰éŸ³æ¥½ã‚’å†ç”Ÿã—ã¾ã™')
 async def play(ctx, url):
     async with ctx.typing():
         player = await YTDLSource.from_url(url, loop=bot.loop)
@@ -96,12 +96,12 @@ async def play(ctx, url):
         else:
             await ctx.send(f'Added to queue: {player.title}')
 
-@bot.command(name='skip', help='Ÿ‚Ì‹È‚ÉƒXƒLƒbƒv‚µ‚Ü‚·')
+@bot.command(name='skip', help='æ¬¡ã®æ›²ã«ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã™')
 async def skip(ctx):
     if ctx.voice_client.is_playing():
         ctx.voice_client.stop()
 
-@bot.command(name='previous', help='‘O‚Ì‹È‚É–ß‚è‚Ü‚·')
+@bot.command(name='previous', help='å‰ã®æ›²ã«æˆ»ã‚Šã¾ã™')
 async def previous(ctx):
     prev_song = music_queue.get_previous()
     if prev_song:
@@ -111,20 +111,20 @@ async def previous(ctx):
     else:
         await ctx.send("No previous song in the queue.")
 
-@bot.command(name='volume', help='‰¹—Ê‚ğ’²®‚µ‚Ü‚· (0-100)')
+@bot.command(name='volume', help='éŸ³é‡ã‚’èª¿æ•´ã—ã¾ã™ (0-100)')
 async def volume(ctx, volume: int):
     if ctx.voice_client.source:
         ctx.voice_client.source.volume = volume / 100
         await ctx.send(f'Volume set to {volume}%')
 
-@bot.command(name='bassboost', help='ƒx[ƒXƒu[ƒXƒgi’á‰¹‹­’²j‚ğ“K—p‚µ‚Ü‚·')
+@bot.command(name='bassboost', help='ãƒ™ãƒ¼ã‚¹ãƒ–ãƒ¼ã‚¹ãƒˆï¼ˆä½éŸ³å¼·èª¿ï¼‰ã‚’é©ç”¨ã—ã¾ã™')
 async def bassboost(ctx):
     if ctx.voice_client.is_playing():
         audio_segment = AudioSegment.from_file("current_audio_file.mp3")
         
         bass_boosted_audio = audio_segment.low_pass_filter(100).apply_gain(10)
 
-@bot.command(name='equalizer', help='ƒCƒRƒ‰ƒCƒU[İ’è (—á: !equalizer bass mid treble)')
+@bot.command(name='equalizer', help='ã‚¤ã‚³ãƒ©ã‚¤ã‚¶ãƒ¼è¨­å®š (ä¾‹: !equalizer bass mid treble)')
 async def equalizer(ctx, bass: int, mid: int, treble: int):
     if ctx.voice_client.is_playing():
         audio_segment = AudioSegment.from_file("current_audio_file.mp3")
@@ -133,19 +133,19 @@ async def equalizer(ctx, bass: int, mid: int, treble: int):
                     .band_pass_filter(500).apply_gain(mid) \
                     .high_pass_filter(5000).apply_gain(treble)
 
-@bot.command(name='join', help='ƒ{ƒCƒXƒ`ƒƒƒ“ƒlƒ‹‚ÉQ‰Á‚µ‚Ü‚·')
+@bot.command(name='join', help='ãƒœã‚¤ã‚¹ãƒãƒ£ãƒ³ãƒãƒ«ã«å‚åŠ ã—ã¾ã™')
 async def join(ctx):
     if not ctx.author.voice:
-        await ctx.send("ƒ{ƒCƒXƒ`ƒƒƒ“ƒlƒ‹‚ÉÚ‘±‚µ‚Ä‚­‚¾‚³‚¢")
+        await ctx.send("ãƒœã‚¤ã‚¹ãƒãƒ£ãƒ³ãƒãƒ«ã«æ¥ç¶šã—ã¦ãã ã•ã„")
         return
     channel = ctx.author.voice.channel
     await channel.connect()
 
-@bot.command(name='leave', help='ƒ{ƒCƒXƒ`ƒƒƒ“ƒlƒ‹‚©‚ç‘Şo‚µ‚Ü‚·')
+@bot.command(name='leave', help='ãƒœã‚¤ã‚¹ãƒãƒ£ãƒ³ãƒãƒ«ã‹ã‚‰é€€å‡ºã—ã¾ã™')
 async def leave(ctx):
     await ctx.voice_client.disconnect()
 
-@bot.command(name='queue', help='Œ»İ‚ÌÄ¶ƒLƒ…[‚ğ•\¦‚µ‚Ü‚·')
+@bot.command(name='queue', help='ç¾åœ¨ã®å†ç”Ÿã‚­ãƒ¥ãƒ¼ã‚’è¡¨ç¤ºã—ã¾ã™')
 async def show_queue(ctx):
     if music_queue.is_empty():
         await ctx.send("Queue is empty!")
